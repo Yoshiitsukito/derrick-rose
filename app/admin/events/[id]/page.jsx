@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
@@ -123,11 +124,13 @@ export default function AdminEventDetailPage() {
 				<div className="lg:col-span-2 bg-black/60 rounded-xl border border-white/5 overflow-hidden">
 					<div className="flex flex-col md:flex-row">
 						{event.imageUrl && (
-							<div className="md:w-1/2 aspect-video md:aspect-auto md:min-h-[200px] bg-black/50">
-								<img
+							<div className="relative md:w-1/2 aspect-video md:aspect-auto md:min-h-[200px] bg-black/50">
+								<Image
 									src={event.imageUrl}
 									alt={event.title}
-									className="w-full h-full object-cover"
+									fill
+									className="object-cover"
+									sizes="(max-width: 768px) 100vw, 50vw"
 								/>
 							</div>
 						)}

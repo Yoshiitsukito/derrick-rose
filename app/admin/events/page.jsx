@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -375,11 +376,14 @@ export default function AdminEventsPage() {
 									/>
 
 									{imagePreviewUrl && (
-										<div className="mt-3">
-											<img
+										<div className="relative mt-3 w-full h-48">
+											<Image
 												src={imagePreviewUrl}
 												alt="Selected preview"
-												className="w-full max-h-48 object-cover rounded-md border border-white/10"
+												fill
+												unoptimized
+												className="object-cover rounded-md border border-white/10"
+												sizes="100vw"
 											/>
 										</div>
 									)}
@@ -397,11 +401,14 @@ export default function AdminEventsPage() {
 										className="w-full text-sm text-white placeholder-white/40"
 									/>
 									{qrPreviewUrl && (
-										<div className="mt-3">
-											<img
+										<div className="relative mt-3 w-full h-48">
+											<Image
 												src={qrPreviewUrl}
 												alt="QR Preview"
-												className="w-full max-h-48 object-contain rounded-md border border-white/10"
+												fill
+												unoptimized
+												className="object-contain rounded-md border border-white/10"
+												sizes="100vw"
 											/>
 										</div>
 									)}

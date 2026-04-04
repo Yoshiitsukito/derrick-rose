@@ -288,7 +288,7 @@ const MyPage = () => {
 				</div>
 			</section>
 			<section id="highlights" className="min-h-screen flex items-center py-16 md:py-0">
-				<div className="relative md:h-screen w-screen gap-4 p-10 flex justify-center items-center flex-col overflow-hidden">
+				<div className="relative md:h-screen w-screen gap-4 p-6 sm:p-10 flex flex-col justify-center items-center overflow-visible md:overflow-hidden pb-10 md:pb-0">
 					<div className="z-0 mb-8 md:mb-0  md:absolute md:top-1/2  md:right-[10%] md:-translate-y-1/2">
 						<motion.div
 							className="relative bg-neutral-900 rounded-3xl h-[300px] md:h-[60vh] w-[85vw] md:w-[30vw] grayscale hover:grayscale-0 ring-2 ring-red-700/70"
@@ -317,7 +317,7 @@ const MyPage = () => {
 							/>
 						</motion.div>
 					</div>
-					<div className="z-10 w-full absolute md:w-auto  md:left-[10%] top-[60%] md:top-1/3 col-span-2 flex flex-col justify-center items-start md:items-start text-start px-10 overflow-visible">
+					<div className="z-10 w-full relative md:absolute md:w-auto md:left-[10%] md:top-1/3 mt-8 md:mt-0 col-span-2 flex flex-col justify-center items-start md:items-start text-start px-4 sm:px-10 pb-2 overflow-visible">
 						<motion.h1
 							className="bg-transparent text-white px-3 md-px-0 text-3xl md:text-8xl font-bold"
 							initial={{ x: -100, opacity: 0 }}
@@ -358,7 +358,7 @@ const MyPage = () => {
 				</div>
 			</section>
 			<section id="merch" className="min-h-screen flex items-center py-16 md:py-0">
-				<div className="relative md:h-screen w-screen gap-4 p-10 flex justify-center items-center flex-col overflow-hidden">
+				<div className="relative md:h-screen w-screen gap-4 p-6 sm:p-10 flex flex-col justify-center items-center overflow-visible md:overflow-hidden pb-10 md:pb-0">
 					<div className="z-0 mb-8 md:mb-0  md:absolute md:top-1/2  md:right-[10%] md:-translate-y-1/2">
 						<motion.div
 							className="relative bg-neutral-900 rounded-3xl h-[300px] md:h-[60vh] w-[85vw] md:w-[30vw] grayscale hover:grayscale-0 ring-2 ring-red-700/70"
@@ -387,7 +387,7 @@ const MyPage = () => {
 							/>
 						</motion.div>
 					</div>
-					<div className="z-10 w-full absolute md:w-auto  md:left-[10%] top-[60%] md:top-1/3 col-span-2 flex flex-col justify-center items-start md:items-start text-start px-10 overflow-visible">
+					<div className="z-10 w-full relative md:absolute md:w-auto md:left-[10%] md:top-1/3 mt-8 md:mt-0 col-span-2 flex flex-col justify-center items-start md:items-start text-start px-4 sm:px-10 pb-2 overflow-visible">
 						<motion.h1
 							className="bg-transparent text-white px-3 md-px-0 text-3xl md:text-8xl font-bold"
 							initial={{ x: -100, opacity: 0 }}
@@ -428,7 +428,7 @@ const MyPage = () => {
 				</div>
 			</section>
 			<section id="contact" className="min-h-screen flex items-center">
-				<div className="relative md:h-screen w-screen  gap-4 p-10 flex justify-center items-center flex-col overflow-hidden">
+				<div className="relative md:h-screen w-screen gap-4 p-6 sm:p-10 flex flex-col justify-center items-center overflow-visible md:overflow-hidden pb-10 md:pb-0">
 					<div className="z-0 mb-48 md:mb-0  md:absolute md:top-1/2  md:right-[10%] md:-translate-y-1/2">
 						<motion.div
 							className="relative bg-neutral-900 rounded-3xl h-[400px] md:h-[60vh] w-[80vw] md:w-[30vw] grayscale hover:grayscale-0 ring-2 ring-red-700/70"
@@ -457,7 +457,7 @@ const MyPage = () => {
 							/>
 						</motion.div>
 					</div>
-					<div className="z-10 w-full absolute md:w-auto  md:left-[10%] top-[60%] md:top-1/3 col-span-2 flex flex-col justify-center items-start md:items-start text-start px-10 overflow-hidden">
+					<div className="z-10 w-full relative md:absolute md:w-auto md:left-[10%] md:top-1/3 mt-8 md:mt-0 col-span-2 flex flex-col justify-center items-start md:items-start text-start px-4 sm:px-10 pb-2 overflow-visible">
 						<motion.h1
 							className="bg-transparent px-3 md-px-0 text-white text-5xl md:text-8xl font-bold mb-3"
 							initial={{ x: -100, opacity: 0 }}

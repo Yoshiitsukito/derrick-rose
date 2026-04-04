@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import Button from "@/components/Button";
@@ -201,11 +202,13 @@ export default function AdminEventEditPage() {
 
 					{error && <p className="text-red-400 text-sm">{error}</p>}
 					{event?.imageUrl && (
-						<div className="rounded-lg border border-white/10 overflow-hidden">
-							<img
+						<div className="relative rounded-lg border border-white/10 overflow-hidden h-40 w-full">
+							<Image
 								src={event.imageUrl}
 								alt={event.title}
-								className="w-full h-40 object-cover bg-black"
+								fill
+								className="object-cover bg-black"
+								sizes="(max-width: 768px) 100vw, 320px"
 							/>
 						</div>
 					)}
@@ -311,11 +314,14 @@ export default function AdminEventEditPage() {
 								className="w-full text-sm text-white placeholder-white/40"
 							/>
 							{imagePreviewUrl && (
-								<div className="mt-3">
-									<img
+								<div className="relative mt-3 w-full h-48">
+									<Image
 										src={imagePreviewUrl}
 										alt="Preview"
-										className="w-full max-h-48 object-cover rounded-md border border-white/10"
+										fill
+										unoptimized
+										className="object-cover rounded-md border border-white/10"
+										sizes="100vw"
 									/>
 								</div>
 							)}
@@ -334,17 +340,26 @@ export default function AdminEventEditPage() {
 							/>
 							<div className="mt-3 space-y-2">
 								{qrPreviewUrl ? (
-									<img
-										src={qrPreviewUrl}
-										alt="QR Preview"
-										className="w-full max-h-48 object-contain rounded-md border border-white/10"
-									/>
+									<div className="relative w-full h-48">
+										<Image
+											src={qrPreviewUrl}
+											alt="QR Preview"
+											fill
+											unoptimized
+											className="object-contain rounded-md border border-white/10"
+											sizes="100vw"
+										/>
+									</div>
 								) : event?.qrImageUrl ? (
-									<img
-										src={event.qrImageUrl}
-										alt="Current QR"
-										className="w-full max-h-48 object-contain rounded-md border border-white/10"
-									/>
+									<div className="relative w-full h-48">
+										<Image
+											src={event.qrImageUrl}
+											alt="Current QR"
+											fill
+											className="object-contain rounded-md border border-white/10"
+											sizes="100vw"
+										/>
+									</div>
 								) : null}
 								<p className="text-xs text-white/40">
 									{isMn

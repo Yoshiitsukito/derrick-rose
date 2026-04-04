@@ -33,8 +33,8 @@ export default function AuthPage() {
 		if (err === "google_not_configured") {
 			setError(
 				isMn
-					? "Google нэвтрэлт сервер дээр тохируулаагүй байна. .env.local файлд GOOGLE_CLIENT_ID болон GOOGLE_CLIENT_SECRET оруулж, серверийг дахин эхлүүлнэ үү."
-					: "Google sign-in is not configured. Add GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET to .env.local and restart the dev server.",
+					? "Google нэвтрэлт тохируулаагүй байна. Локалд: .env.local дээр GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET. Production (Vercel): Project → Settings → Environment Variables-д ижил түлхүүрүүдийг нэмээд Redeploy хийнэ."
+					: "Google sign-in is not configured. Locally: add GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET to .env.local and restart the dev server. On Vercel: add the same keys under Project → Settings → Environment Variables, then Redeploy.",
 			);
 		} else if (err.startsWith("google_") || err.includes("google")) {
 			setError(
