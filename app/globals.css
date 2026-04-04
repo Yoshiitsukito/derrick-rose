@@ -65,8 +65,9 @@ h6 {
 	justify-content: center;
 }
 
+/* Navbar overlay-оос дээгүүр (товч, хэл) — mobile menu backdrop z-45 */
 .navbar {
-	z-index: 49 !important;
+	z-index: 60 !important;
 }
 
 /* h2, h3, h4, h5, h6 {
