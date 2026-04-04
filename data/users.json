@@ -1,0 +1,10 @@
+[
+  {
+    "id": "user_1773050260938_if4k5n",
+    "email": "yoshiitsukito19@gmail.com",
+    "passwordHash": "$2a$10$adHUHYE32MMscXJJgeELCeU8BHPzRhFvGWtCkPItDO2L9ZYCqUFVC",
+    "role": "admin",
+    "createdAt": "2026-03-09T09:57:40.938Z",
+    "updatedAt": "2026-03-09T09:57:40.938Z"
+  }
+]

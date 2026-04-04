@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900">
+  <defs>
+    <linearGradient id="bg-off" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="50%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </linearGradient>
+    <linearGradient id="court" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-off)" />
+
+  <circle cx="450" cy="260" r="190" fill="#111827" stroke="#ef4444" stroke-width="8"/>
+  <circle cx="450" cy="260" r="130" fill="none" stroke="#f97316" stroke-width="6" opacity="0.7"/>
+
+  <path d="M450 130 C500 150 545 200 560 260 C545 320 500 370 450 390 C400 370 355 320 340 260 C355 200 400 150 450 130Z"
+        fill="none" stroke="#f9fafb" stroke-width="4" opacity="0.9"/>
+
+  <rect x="150" y="480" width="600" height="260" rx="40" ry="40" fill="#020617" stroke="#ef4444" stroke-width="8"/>
+
+  <rect x="190" y="520" width="520" height="180" rx="28" ry="28" fill="url(#court)" opacity="0.18"/>
+
+  <text x="200" y="560" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        font-size="22" font-weight="600" fill="#f9fafb">
+    BUSINESS & COMMUNITY
+  </text>
+
+  <text x="200" y="595" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        font-size="16" fill="#e5e7eb">
+    Roses Flower Shop  "  Coco5  "  Freestyle Chess
+  </text>
+  <text x="200" y="625" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        font-size="16" fill="#e5e7eb">
+    Real Estate  "  Sloomoo  "  Rose Scholars  "  The PoohPrint
+  </text>
+</svg>
+

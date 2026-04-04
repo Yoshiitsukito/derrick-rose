@@ -1,0 +1,16 @@
+[
+  {
+    "id": "event_1773052261544_w7l1ku",
+    "title": "test",
+    "description": "iauehrigs",
+    "date": "2026-03-20T15:00",
+    "price": 0,
+    "imageUrl": "",
+    "videoUrl": "",
+    "location": "united center chicago",
+    "hasTicket": false,
+    "isActive": false,
+    "createdAt": "2026-03-09T10:31:01.544Z",
+    "updatedAt": "2026-03-09T10:40:08.017Z"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "id": "contact_1773050742746_qkr42u",
+    "name": "ken",
+    "email": "dorjnyambuu2@gmail.com",
+    "message": "hi",
+    "replyStatus": "pending",
+    "createdAt": "2026-03-09T10:05:42.746Z"
+  },
+  {
+    "id": "contact_1773051070329_iszj84",
+    "name": "buyna",
+    "email": "bbuyna243@gmail.com",
+    "message": "hi",
+    "replyStatus": "replied",
+    "createdAt": "2026-03-09T10:11:10.329Z",
+    "replySubject": "Re: Your message to Derrick Rose",
+    "replyBody": "hi",
+    "replyAt": "2026-03-09T10:11:47.469Z"
+  }
+]
