@@ -117,6 +117,11 @@ export default function EventDetailPage() {
 		() => (event?.videoUrl ? getYoutubeEmbedUrl(event.videoUrl) : null),
 		[event?.videoUrl],
 	);
+	const remainingTickets =
+		typeof event?.ticketsRemaining === "number" &&
+		Number.isFinite(event.ticketsRemaining)
+			? Math.max(0, event.ticketsRemaining)
+			: null;
 
 	const dateLabel =
 		event &&
@@ -290,6 +295,14 @@ export default function EventDetailPage() {
 															</span>
 														</Button>
 													</div>
+													{remainingTickets !== null && (
+														<p className="text-xs text-gray-600">
+															{isMn ? "Үлдсэн тасалбар: " : "Tickets left: "}
+															<span className="font-semibold text-gray-800">
+																{remainingTickets}
+															</span>
+														</p>
+													)}
 												</>
 											)}
 											{ticketStatus === "success" && (

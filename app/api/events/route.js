@@ -13,7 +13,13 @@ export async function GET() {
 						? e.ticketLimit
 						: null;
 				if (!e.hasTicket || limit === null) {
-					return { ...e, ticketLimit: limit, ticketsSold: null, soldOut: false };
+					return {
+						...e,
+						ticketLimit: limit,
+						ticketsSold: null,
+						ticketsRemaining: null,
+						soldOut: false,
+					};
 				}
 				const tickets = await listTicketsForEvent(e.id);
 				const sold = tickets.reduce(
@@ -25,6 +31,7 @@ export async function GET() {
 					...e,
 					ticketLimit: limit,
 					ticketsSold: sold,
+					ticketsRemaining: Math.max(0, remaining),
 					soldOut: remaining <= 0,
 				};
 			}),
