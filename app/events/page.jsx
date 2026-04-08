@@ -110,7 +110,8 @@ export default function EventsPage() {
 
 	useEffect(() => {
 		let mounted = true;
-		(async () => {
+		const loadEvents = async (silent = false) => {
+			if (!silent) setLoading(true);
 			try {
 				const res = await fetch("/api/events");
 				if (!res.ok) {
@@ -119,15 +120,22 @@ export default function EventsPage() {
 				const data = await res.json();
 				if (!mounted) return;
 				setEvents(data.events || []);
+				setError("");
 			} catch (err) {
 				if (!mounted) return;
 				setError(err.message || "Failed to load events.");
 			} finally {
-				if (mounted) setLoading(false);
+				if (mounted && !silent) setLoading(false);
 			}
-		})();
+		};
+		loadEvents();
+		const intervalId = setInterval(() => {
+			if (!mounted) return;
+			loadEvents(true);
+		}, 5000);
 		return () => {
 			mounted = false;
+			clearInterval(intervalId);
 		};
 	}, []);
 

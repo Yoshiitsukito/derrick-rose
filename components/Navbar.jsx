@@ -133,6 +133,16 @@ const NavItems = ({ isNavOpen, setIsNavOpen }) => {
 						className="text-3xl sm:text-4xl md:text-6xl font-bold text-white text-center px-2">
 						{isMn ? "Цэс" : "Menu"}
 					</motion.h1>
+					{!loadingUser && user?.email && (
+						<motion.p
+							variants={itemVariants}
+							animate={isNavOpen ? "open" : "closed"}
+							custom={0.08}
+							className="max-w-md text-center text-xs sm:text-sm text-gray-300 break-all px-3">
+							{isMn ? "Нэвтэрсэн: " : "Signed in: "}
+							<span className="font-semibold text-white">{user.email}</span>
+						</motion.p>
+					)}
 
 					{isAdmin ? (
 						<>

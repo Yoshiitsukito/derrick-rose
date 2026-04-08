@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useCallback, useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -24,29 +24,41 @@ export default function EventDetailPage() {
 	const [ticketError, setTicketError] = useState("");
 	const [emailSent, setEmailSent] = useState(null); // null | boolean
 
-	useEffect(() => {
-		if (!id) return;
-		let mounted = true;
-		(async () => {
+	const loadEvent = useCallback(
+		async (options = {}) => {
+			if (!id) return;
+			const { silent = false } = options;
+			if (!silent) setLoading(true);
 			try {
 				const res = await fetch(`/api/events/${id}`);
 				if (!res.ok) {
 					throw new Error("Failed to load event.");
 				}
 				const data = await res.json();
-				if (!mounted) return;
 				setEvent(data.event || null);
+				setError("");
 			} catch (err) {
-				if (!mounted) return;
 				setError(err.message || "Failed to load event.");
 			} finally {
-				if (mounted) setLoading(false);
+				if (!silent) setLoading(false);
 			}
-		})();
+		},
+		[id],
+	);
+
+	useEffect(() => {
+		let mounted = true;
+		if (!id) return;
+		loadEvent();
+		const intervalId = setInterval(() => {
+			if (!mounted) return;
+			loadEvent({ silent: true });
+		}, 5000);
 		return () => {
 			mounted = false;
+			clearInterval(intervalId);
 		};
-	}, [id]);
+	}, [id, loadEvent]);
 
 	useEffect(() => {
 		let mounted = true;
@@ -132,6 +144,7 @@ export default function EventDetailPage() {
 			const sent = data?.emailSent === true;
 			setEmailSent(sent);
 			setTicketStatus("success");
+			loadEvent({ silent: true });
 		} catch (err) {
 			setTicketStatus("error");
 			setTicketError(
