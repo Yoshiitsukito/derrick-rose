@@ -73,6 +73,17 @@ function EventCard({ event, isMn }) {
 						<span className="block text-lg font-bold text-red-400">
 							{`$${Number(event.price || 0).toFixed(2)}`}
 						</span>
+						{typeof event.ticketsRemaining === "number" && (
+							<span className="block text-xs text-gray-300 mt-1">
+								{isMn ? "Үлдэгдэл: " : "Left: "}
+								<span className="font-semibold">{Math.max(0, event.ticketsRemaining)}</span>
+							</span>
+						)}
+						{event.soldOut && (
+							<span className="block text-xs font-semibold text-red-400 mt-1">
+								{isMn ? "Тасалбар дууссан" : "Sold out"}
+							</span>
+						)}
 					</div>
 				)}
 				<Button variation="primary">

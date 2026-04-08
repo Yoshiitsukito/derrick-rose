@@ -70,8 +70,22 @@ export default function EventDetailPage() {
 		if (!event?.id) return;
 		const parsedQty = Number.parseInt(quantityInput, 10);
 		const quantity = Number.isFinite(parsedQty)
-			? Math.min(10, Math.max(1, parsedQty))
+			? Math.min(quantityMax, Math.max(1, parsedQty))
 			: 1;
+		if (remainingTickets !== null && remainingTickets <= 0) {
+			setTicketStatus("error");
+			setTicketError(isMn ? "Тасалбар дууссан байна." : "Tickets are sold out.");
+			return;
+		}
+		if (remainingTickets !== null && quantity > remainingTickets) {
+			setTicketStatus("error");
+			setTicketError(
+				isMn
+					? `Үлдэгдэл хүрэлцэхгүй байна. Одоогоор ${remainingTickets} тасалбар үлдсэн.`
+					: `Not enough tickets remaining. Only ${remainingTickets} left.`,
+			);
+			return;
+		}
 		setTicketStatus("loading");
 		setTicketError("");
 		setEmailSent(null);
@@ -96,7 +110,23 @@ export default function EventDetailPage() {
 					return;
 				}
 				const body = await res.json().catch(() => ({}));
-				throw new Error(body.error || "Failed to create ticket.");
+				const apiError = body.error || "Failed to create ticket.";
+				const normalized = String(apiError).toLowerCase();
+				if (isMn) {
+					if (normalized.includes("sold out")) {
+						throw new Error("Тасалбар дууссан байна.");
+					}
+					if (normalized.includes("only") && normalized.includes("remaining")) {
+						const match = apiError.match(/Only\s+(\d+)/i);
+						const remaining = match?.[1];
+						throw new Error(
+							remaining
+								? `Үлдэгдэл хүрэлцэхгүй байна. Одоогоор ${remaining} тасалбар үлдсэн.`
+								: "Үлдэгдэл тасалбар хүрэлцэхгүй байна.",
+						);
+					}
+				}
+				throw new Error(apiError);
 			}
 			const data = await res.json().catch(() => ({}));
 			const sent = data?.emailSent === true;
@@ -122,6 +152,8 @@ export default function EventDetailPage() {
 		Number.isFinite(event.ticketsRemaining)
 			? Math.max(0, event.ticketsRemaining)
 			: null;
+	const quantityMax =
+		remainingTickets !== null ? Math.max(1, Math.min(10, remainingTickets)) : 10;
 
 	const dateLabel =
 		event &&
@@ -223,10 +255,31 @@ export default function EventDetailPage() {
 
 									{event.hasTicket ? (
 										<div className="space-y-3">
-											{event.soldOut ? (
-												<p className="text-sm font-semibold text-red-600">
-													{isMn ? "Тасалбар дууссан" : "Sold out"}
+											{remainingTickets !== null && (
+												<p className="text-xs text-gray-600">
+													{isMn ? "Үлдэгдэл: " : "Tickets left: "}
+													<span className="font-semibold text-gray-800">
+														{remainingTickets}
+													</span>
 												</p>
+											)}
+											{event.soldOut ? (
+												<div className="flex flex-wrap items-center gap-4">
+													<div>
+														<p className="text-xs uppercase text-gray-500">
+															{isMn ? "Үнэ" : "Price"}
+														</p>
+														<p className="text-xl font-bold text-red-600">
+															{`$${Number(event.price || 0).toFixed(2)}`}
+														</p>
+													</div>
+													<button
+														type="button"
+														disabled
+														className="rounded-xl bg-gray-300 text-gray-600 px-5 py-2 text-sm font-semibold cursor-not-allowed">
+														{isMn ? "Тасалбар дууссан" : "Sold out"}
+													</button>
+												</div>
 											) : (
 												<>
 													<div className="flex flex-wrap items-center gap-4">
@@ -245,28 +298,30 @@ export default function EventDetailPage() {
 															<input
 																type="number"
 																min={1}
-																max={10}
-											value={quantityInput}
-											onChange={(e) => {
-												const nextValue = e.target.value;
-												if (nextValue === "") {
-													setQuantityInput("");
-													return;
-												}
-												const parsed = Number.parseInt(nextValue, 10);
-												if (!Number.isFinite(parsed)) return;
-												setQuantityInput(String(Math.min(10, Math.max(1, parsed))));
-											}}
-											onBlur={() => {
-												const parsed = Number.parseInt(quantityInput, 10);
-												setQuantityInput(
-													String(
-														Number.isFinite(parsed)
-															? Math.min(10, Math.max(1, parsed))
-															: 1,
-													),
-												);
-											}}
+																max={quantityMax}
+																value={quantityInput}
+																onChange={(e) => {
+																	const nextValue = e.target.value;
+																	if (nextValue === "") {
+																		setQuantityInput("");
+																		return;
+																	}
+																	const parsed = Number.parseInt(nextValue, 10);
+																	if (!Number.isFinite(parsed)) return;
+																	setQuantityInput(
+																		String(Math.min(quantityMax, Math.max(1, parsed))),
+																	);
+																}}
+																onBlur={() => {
+																	const parsed = Number.parseInt(quantityInput, 10);
+																	setQuantityInput(
+																		String(
+																			Number.isFinite(parsed)
+																				? Math.min(quantityMax, Math.max(1, parsed))
+																				: 1,
+																		),
+																	);
+																}}
 																className="w-14 rounded border border-gray-300 px-2 py-1 text-sm"
 															/>
 														</label>
@@ -295,14 +350,6 @@ export default function EventDetailPage() {
 															</span>
 														</Button>
 													</div>
-													{remainingTickets !== null && (
-														<p className="text-xs text-gray-600">
-															{isMn ? "Үлдсэн тасалбар: " : "Tickets left: "}
-															<span className="font-semibold text-gray-800">
-																{remainingTickets}
-															</span>
-														</p>
-													)}
 												</>
 											)}
 											{ticketStatus === "success" && (
