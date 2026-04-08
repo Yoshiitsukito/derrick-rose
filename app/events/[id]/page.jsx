@@ -19,7 +19,7 @@ export default function EventDetailPage() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState("");
 	const [user, setUser] = useState(null);
-	const [quantity, setQuantity] = useState(1);
+	const [quantityInput, setQuantityInput] = useState("1");
 	const [ticketStatus, setTicketStatus] = useState("idle"); // idle | loading | success | error
 	const [ticketError, setTicketError] = useState("");
 	const [emailSent, setEmailSent] = useState(null); // null | boolean
@@ -68,6 +68,10 @@ export default function EventDetailPage() {
 
 	const handleBuyTicket = async () => {
 		if (!event?.id) return;
+		const parsedQty = Number.parseInt(quantityInput, 10);
+		const quantity = Number.isFinite(parsedQty)
+			? Math.min(10, Math.max(1, parsedQty))
+			: 1;
 		setTicketStatus("loading");
 		setTicketError("");
 		setEmailSent(null);
@@ -237,18 +241,27 @@ export default function EventDetailPage() {
 																type="number"
 																min={1}
 																max={10}
-																value={quantity}
-																onChange={(e) =>
-																	setQuantity(
-																		Math.min(
-																			10,
-																			Math.max(
-																				1,
-																				Number(e.target.value) || 1,
-																			),
-																		),
-																	)
-																}
+											value={quantityInput}
+											onChange={(e) => {
+												const nextValue = e.target.value;
+												if (nextValue === "") {
+													setQuantityInput("");
+													return;
+												}
+												const parsed = Number.parseInt(nextValue, 10);
+												if (!Number.isFinite(parsed)) return;
+												setQuantityInput(String(Math.min(10, Math.max(1, parsed))));
+											}}
+											onBlur={() => {
+												const parsed = Number.parseInt(quantityInput, 10);
+												setQuantityInput(
+													String(
+														Number.isFinite(parsed)
+															? Math.min(10, Math.max(1, parsed))
+															: 1,
+													),
+												);
+											}}
 																className="w-14 rounded border border-gray-300 px-2 py-1 text-sm"
 															/>
 														</label>
